@@ -1,0 +1,17 @@
+# Ignore everything...
+*
+
+# ...except the site's HTML, CSS and JS
+!.gitignore
+!index.html
+!css/
+!css/*.css
+!js/
+!js/*.js
+!assets/
+!assets/*
+!favicon.ico
+!assets/ig/*
+!assets/video/*
+!README.md
+
