@@ -12,19 +12,21 @@ var BIB = 'PCSC-' + new Date().getFullYear() + '-' + String(Math.floor(1000 + Ma
 
 /* ---------- Mobile menu ---------- */
 var sheet = $('#sheet'), menuBtn = $('#menuBtn');
-function menu(open){ sheet.classList.toggle('open', open); sheet.setAttribute('aria-hidden', String(!open)); menuBtn.setAttribute('aria-expanded', String(open)); if (open) $('#sheetClose').focus(); }
+function menu(open){ sheet.classList.toggle('open', open); document.body.classList.toggle('menu-open', open); sheet.setAttribute('aria-hidden', String(!open)); menuBtn.setAttribute('aria-expanded', String(open)); if (open) $('#sheetClose').focus(); }
+addEventListener('keydown', function(e){ if (e.key === 'Escape' && sheet.classList.contains('open')){ menu(false); menuBtn.focus(); } });
 menuBtn.addEventListener('click', function(){ menu(true); });
 $('#sheetClose').addEventListener('click', function(){ menu(false); menuBtn.focus(); });
 $$('#sheet a').forEach(function(a){ a.addEventListener('click', function(){ menu(false); }); });
 
-/* ---------- Loader → logo flies into the hero badge, then floats gently ---------- */
-var pre = $('#pre'), badge = $('#badge'), badgeIcon = $('#badgeIcon'), revealed = false;
+/* ---------- Loader → logo flies into the hero mark, then floats gently ---------- */
+var pre = $('#pre'), badge = $('#heroMark'), badgeWave = $('#heroWave'), badgeIcon = $('#heroIcon'), revealed = false;
 function float(){
   if (REDUCE) return;
-  (function f(now){ var t = now / 1000; badge.style.transform = 'translate3d(0,' + (Math.sin(t * 1.6) * 10).toFixed(1) + 'px,0) rotate(' + (Math.sin(t * 1.6 + .9) * 1.6).toFixed(2) + 'deg)'; requestAnimationFrame(f); })(performance.now());
+  (function f(now){ var t = now / 1000; badgeWave.style.transform = 'translate3d(0,' + (Math.sin(t * 1.6) * 5).toFixed(1) + 'px,0) rotate(' + (Math.sin(t * 1.6 + .9) * 2.5).toFixed(2) + 'deg)'; requestAnimationFrame(f); })(performance.now());
 }
 function reveal(){
   if (revealed) return; revealed = true;
+  document.body.classList.add('loaded');
   var icon = $('#preIcon'), ir = icon.getBoundingClientRect(), tr = badgeIcon.getBoundingClientRect();
   if (REDUCE || !ir.width || !tr.width || tr.bottom < 0 || tr.top > innerHeight){ pre.classList.add('done'); badge.classList.add('on'); float(); return; }
   var fly = icon.cloneNode(); fly.className = 'flyer'; fly.removeAttribute('id');
@@ -41,6 +43,35 @@ function reveal(){
 }
 $('#preSkip').addEventListener('click', reveal);
 setTimeout(reveal, REDUCE ? 200 : 1950);
+
+/* ---------- Carousels: dots under every .carousel (scroll, swipe or tap a dot) ---------- */
+$$('.carousel').forEach(function(c){
+  var dots = document.createElement('div'), stops = [], raf = 0;
+  dots.className = 'dots'; dots.setAttribute('role', 'group'); dots.setAttribute('aria-label', (c.getAttribute('aria-label') || 'Carousel') + ' · pages');
+  c.parentNode.insertBefore(dots, c.nextSibling);
+  function setup(){
+    var cols = [];
+    Array.prototype.forEach.call(c.children, function(k){ if (cols.indexOf(k.offsetLeft) < 0) cols.push(k.offsetLeft); });
+    cols.sort(function(a, b){ return a - b; });
+    var x0 = cols[0] || 0, w = c.clientWidth, per = cols.filter(function(x){ return x - x0 < w - 4; }).length || 1;
+    var max = c.scrollWidth - w, pages = Math.ceil(cols.length / per);
+    stops = []; for (var i = 0; i < pages; i++) stops.push(Math.min(cols[i * per] - x0, max));
+    dots.hidden = pages < 2 || max < 4;
+    dots.innerHTML = stops.map(function(_, i){ return '<button type="button" aria-label="Page ' + (i + 1) + ' of ' + pages + '"></button>'; }).join('');
+    $$('button', dots).forEach(function(b, i){ b.addEventListener('click', function(){ c.scrollTo({ left: stops[i], behavior: REDUCE ? 'auto' : 'smooth' }); }); });
+    sync();
+  }
+  function sync(){
+    raf = 0; var x = c.scrollLeft, max = c.scrollWidth - c.clientWidth, cur = 0, best = 1e9;
+    stops.forEach(function(s, i){ var d = Math.abs(s - x); if (d < best){ best = d; cur = i; } });
+    if (x >= max - 4) cur = stops.length - 1;
+    $$('button', dots).forEach(function(b, i){ b.setAttribute('aria-current', i === cur ? 'true' : 'false'); });
+  }
+  c.addEventListener('scroll', function(){ if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+  var t; addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(setup, 150); });
+  addEventListener('load', setup);
+  setup();
+});
 
 /* ---------- Share links (after registering) ---------- */
 function pageUrl(){ return /^https?:/.test(location.href) ? location.href.split('#')[0] : 'https://www.instagram.com/punjaicapitals'; }

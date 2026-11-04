@@ -1,0 +1,178 @@
+/* =====================================================================
+   THE 42.2K SCROLL RUN — opt-in (ported from Draft 4).
+   Nothing here shows until a visitor taps "Start the 42.2K scroll run"
+   in the hero: js/run.js then adds body.run, draws the track and
+   un-hides the #finish section. Tap again (or "End run") to switch off.
+   ===================================================================== */
+:root{
+  --lane:clamp(56px,6vw,96px);                       /* side lane the track runs in */
+  --display:"Big Shoulders","Arial Narrow",Impact,sans-serif;
+  --cream:#FFF4EA; --night:#0E0C09; --paper:#F6EEDC;
+  --ease:cubic-bezier(.2,.8,.15,1);
+}
+main{position:relative}
+
+/* Make room for the lane on the side each section runs on */
+body.run main > section[data-lane="l"] > .wrap{padding-left:var(--lane);max-width:calc(var(--wrap) + var(--pad) + var(--lane))}
+body.run main > section[data-lane="r"]:not(.hero) > .wrap{padding-right:var(--lane);max-width:calc(var(--wrap) + var(--pad) + var(--lane))}
+/* Middle lane (data-lane="m"): the track runs between the two columns, like Draft 4's "Three ways to move" */
+@media (min-width:761px){
+  body.run main > section[data-lane="m"] .lane-grid{column-gap:calc(var(--lane) + 40px)}
+  body.run #what .lane-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body.run main > section[data-lane="m"] .head > *{max-width:calc(50% - var(--lane) / 2 - 28px)}
+}
+@media (max-width:760px){
+  body.run main > section[data-lane-mobile="l"] > .wrap{padding-left:var(--lane)}
+  body.run main > section[data-lane-mobile="r"] > .wrap{padding-right:var(--lane)}
+  body.run .hero{padding-bottom:170px}                    /* room for the centred START line under the buttons */
+  .run-arch{--startB:22px}
+}
+body.run .hero__credit{display:none}
+body.run .hero__mark{visibility:hidden}
+
+/* The running track: lane, dashed centre line, orange GPS trace */
+.route{position:absolute;left:0;top:0;z-index:1;pointer-events:none;overflow:visible}
+.route path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.route .lane-bg{stroke:rgba(26,9,4,.07);stroke-width:22}
+.route .centre{stroke:rgba(26,9,4,.2);stroke-width:2;stroke-dasharray:10 14}
+.route .glow{stroke:var(--accent);stroke-width:14;opacity:.18}
+.route .trace{stroke:var(--accent);stroke-width:4.5}
+.kmpost{position:absolute;z-index:2;transform:translate(-50%,-50%);padding:3px 8px;border-radius:999px;background:#160603;color:#FFD3B0;font:700 10.5px/1.2 var(--mono);letter-spacing:.06em;white-space:nowrap;pointer-events:none;box-shadow:0 4px 10px rgba(22,6,3,.18)}
+.kmpost--r{transform:translate(calc(-100% + 14px),-50%)}
+.kmpost--l{transform:translate(-14px,-50%)}
+
+/* Start arch at the bottom of the hero + the big logo that becomes the runner */
+.run-arch{position:absolute;z-index:3;bottom:var(--startB,56px);width:clamp(130px,13vw,210px);transform:translateX(-50%);pointer-events:none;animation:archIn .8s var(--ease) both}
+.run-arch .flag{transform-origin:50% 100%;animation:flutter 2.6s ease-in-out infinite}
+@keyframes flutter{0%,100%{transform:rotate(0)}50%{transform:rotate(1.6deg) skewX(-2deg)}}
+@keyframes archIn{from{opacity:0;transform:translate(-50%,30px)}to{opacity:1;transform:translateX(-50%)}}
+.run-flyer{position:fixed;z-index:95;pointer-events:none;transform-origin:0 0}
+
+/* Water station (15K) */
+.water{position:absolute;z-index:2;width:62px;transform:translate(-50%,-30%);color:#1A0904;pointer-events:none}
+.water .drop{opacity:0}
+.water.splash .drop{animation:drop .9s ease-out forwards}
+.water.splash .drop:nth-child(2){animation-delay:.06s}.water.splash .drop:nth-child(3){animation-delay:.12s}
+@keyframes drop{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--tx,10px),-26px)}}
+
+/* Runner (club logo shape), mates, dog, speech bubble */
+.runner,.mate,.dog{position:absolute;left:0;top:0;z-index:20;will-change:transform}   /* inside <main>: they scroll with the track */
+.runner{width:62px;height:85px;cursor:pointer;opacity:0;transition:opacity .25s}
+.runner svg,.mate svg{width:100%;height:100%;overflow:visible}
+.mate,.dog{pointer-events:none}
+.mate{width:40px;height:55px;opacity:0;transition:opacity .5s}
+.mate.on{opacity:.9}
+.dog{width:66px;height:42px;opacity:0;transition:opacity .4s}
+.dog.on{opacity:1}
+.dog svg{animation:gallop .28s ease-in-out infinite alternate}
+@keyframes gallop{to{transform:translateY(-4px) rotate(-3deg)}}
+.bubble{position:absolute;left:0;top:0;z-index:21;pointer-events:none;padding:8px 13px;border-radius:14px 14px 14px 3px;background:rgba(22,6,3,.86);color:var(--cream);border:1px solid rgba(255,243,232,.18);font-size:13px;font-weight:600;line-height:1.3;white-space:nowrap;opacity:0;transition:opacity .3s}
+.bubble.on{opacity:1}
+.hi5{animation:hi5 .7s var(--ease)}
+@keyframes hi5{0%{transform:translateY(0)}35%{transform:translateY(-26px) rotate(-8deg)}70%{transform:translateY(0) rotate(4deg)}100%{transform:none}}
+
+/* Stats tag: rides with the runner, docks bottom-right at start and finish */
+.stat{position:absolute;left:0;top:0;z-index:30;display:flex;flex-direction:column;gap:3px;padding:9px 14px 9px 12px;border-radius:16px;background:rgba(22,6,3,.84);color:var(--cream);border:1px solid rgba(255,243,232,.16);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-family:var(--mono);box-shadow:0 12px 30px rgba(22,6,3,.25);will-change:transform;pointer-events:none;transition:opacity .4s}
+body.typing .stat,.stat.off{opacity:0}
+.stat.dock{position:fixed;left:auto;top:auto;right:24px;bottom:24px;transform:none;animation:statIn .4s ease}
+@keyframes statIn{from{opacity:0;transform:translateY(10px)}}
+.stat__row{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+.stat__km{font-size:22px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.stat__km small{font-size:10px;font-weight:500;opacity:.8;margin-left:3px}
+.stat__ring{width:22px;height:22px;flex:none;align-self:center}
+.stat__ring circle{fill:none;stroke-width:5}
+.stat__sub{font-size:11px;opacity:.85}
+.stat__pace.fire{color:#FFB27A}.stat__pace.walk{color:#FFE2CF}
+.toasts{position:fixed;z-index:35;top:calc(72px + 14px);right:max(16px,env(safe-area-inset-right));display:flex;flex-direction:column;gap:8px;align-items:flex-end;pointer-events:none}
+.toast{display:flex;align-items:center;gap:12px;min-height:52px;padding:8px 18px;border-radius:14px;background:rgba(22,6,3,.86);color:var(--cream);border:1px solid rgba(255,243,232,.16);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transform:translateX(120%);transition:transform .7s var(--ease),opacity .5s}
+.toast.on{transform:none}.toast.out{opacity:0}
+.toast b{font-family:var(--mono);font-size:12px;color:#FF9A5C;white-space:nowrap}
+.toast span{font-size:14px;font-weight:500}
+.runexit{position:fixed;z-index:31;left:max(14px,env(safe-area-inset-left));bottom:max(14px,env(safe-area-inset-bottom));display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,243,232,.2);background:rgba(22,6,3,.84);color:var(--cream);font-size:13px;font-weight:600;box-shadow:0 10px 24px rgba(22,6,3,.2)}
+.runexit:hover{background:#160603}
+#confetti{position:fixed;inset:0;z-index:55;pointer-events:none}
+
+/* ---------- 42.2K finish line (only in run mode) ---------- */
+.finish{position:relative;overflow:hidden;background:var(--night);color:var(--paper);text-align:center;padding:clamp(110px,15vh,150px) 0 clamp(72px,10vw,120px)}
+.crowd{position:absolute;left:0;right:0;top:20px;height:64px;display:flex;justify-content:space-around;align-items:flex-end;padding:0 4vw;pointer-events:none;color:var(--paper);opacity:.3}
+.crowd svg{width:30px;height:54px}
+.finish.cheer .crowd svg{animation:hop .6s ease-in-out infinite alternate}
+.crowd svg:nth-child(2n){animation-delay:.2s!important}.crowd svg:nth-child(3n){animation-delay:.35s!important}
+@keyframes hop{to{transform:translateY(-10px)}}
+.finish__arch{position:relative;--tape:clamp(160px,25vh,240px);height:clamp(300px,44vh,420px);width:calc(100% - 2 * var(--lane));max-width:1240px;margin:0 auto}
+.finish__arch .frame,.finish__arch .confetti-static{position:absolute;inset:0;width:100%;height:100%}
+.banner{position:absolute;left:0;right:0;top:clamp(34px,5.4vh,50px);margin:0;font-family:var(--display);font-weight:900;font-size:clamp(22px,3vw,40px);line-height:1.2;letter-spacing:.3em;color:var(--night)}
+.tape{position:absolute;left:4%;right:4%;top:var(--tape);height:4px;background:var(--accent);border-radius:2px;transition:transform .6s var(--ease)}
+.finished .tape{transform:scaleX(0)}
+.medal{position:absolute;right:8%;top:calc(var(--tape) + 20px);width:110px;height:auto;transform:translateY(-160%) rotate(-12deg);opacity:0;transition:transform 1.2s cubic-bezier(.3,1.4,.5,1),opacity .4s}
+.finished .medal{transform:rotate(-4deg);opacity:1}
+.confetti-static rect,.confetti-static circle{animation:float 3s ease-in-out infinite alternate}
+.confetti-static :nth-child(2n){animation-delay:-1.2s}
+@keyframes float{to{transform:translateY(-8px)}}
+.finish h2{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.005em;font-size:clamp(50px,6.6vw,112px);display:flex;flex-direction:column}
+.finish h2 span:last-child{color:var(--gold)}
+.finish .lead{margin:22px auto 0;color:#BDB199}
+.finish__join{margin-top:clamp(28px,4vh,40px)}
+
+/* Scroll-run summary + finisher certificate */
+.summary{display:none;margin:clamp(30px,5vh,48px) auto 0;width:min(820px,calc(100% - 32px));text-align:left;border-radius:28px;padding:clamp(22px,3vw,34px);background:linear-gradient(160deg,#1E1A14,#14110D);border:1px solid rgba(246,238,220,.14)}
+.summary.on{display:block;animation:summ 1s var(--ease)}
+@keyframes summ{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
+.summary__top{display:flex;align-items:center;gap:14px}
+.summary__top img{width:42px;height:42px;padding:7px;border-radius:12px;background:var(--accent)}
+.summary__top b{display:block;font-size:17px}
+.summary__top span{font-size:13px;color:#BDB199}
+.summary__stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0}
+.summary__stats div{display:flex;flex-direction:column;gap:2px}
+.summary__stats span{font-size:12px;color:#BDB199;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono)}
+.summary__stats b{font-family:var(--display);font-weight:900;font-size:clamp(34px,4vw,52px);line-height:1}
+.splits{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;align-items:end;height:110px;padding-top:10px;border-top:1px solid rgba(246,238,220,.1)}
+.splits div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;height:100%}
+.splits i{display:block;width:100%;max-width:56px;border-radius:8px 8px 3px 3px;background:var(--gold);transform-origin:bottom;animation:bar .9s var(--ease) backwards}
+@keyframes bar{from{transform:scaleY(0)}}
+.splits span{font-family:var(--mono);font-size:11px;color:#BDB199;white-space:nowrap}
+.summary__note{margin-top:16px;font-size:14px;color:#BDB199}
+.cert{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;margin-top:24px;padding-top:24px;border-top:1px solid rgba(246,238,220,.1);align-items:start}
+.cert__prev{width:150px;aspect-ratio:1080/1350;border-radius:12px;background:#24201A;object-fit:cover;box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.cert__h{font-family:var(--display);font-weight:900;font-size:28px;text-transform:uppercase;line-height:1;letter-spacing:0}
+.summary .field{margin-top:14px}
+.summary .field label{color:var(--paper)}
+.summary .field input{min-height:50px;border-color:#4A4336;background:#24201A;color:var(--paper);color-scheme:dark}
+.summary .field input::placeholder{color:#8F8573}
+.summary .field input:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(242,163,65,.18)}
+.cert__row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.cert__row .btn{min-height:46px;padding:0 18px;font-size:15px}
+.summary .btn--ghost{background:rgba(246,238,220,.06);color:var(--paper);border:1px solid rgba(246,238,220,.2)}
+.summary .btn--ghost:hover{border-color:var(--gold);color:var(--gold)}
+.social{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.social a,.social button{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 14px;border-radius:999px;background:rgba(246,238,220,.06);border:1px solid rgba(246,238,220,.18);color:var(--paper);font-size:14px;font-weight:600;text-decoration:none}
+.social a:hover,.social button:hover{background:rgba(242,163,65,.18);border-color:var(--gold)}
+.social svg{width:16px;height:16px}
+.cert__msg{margin-top:10px;font-size:13px;color:var(--gold);min-height:1.2em}
+
+/* ---------- Mobile: 46px lane on the section's side ---------- */
+@media (max-width:760px){
+  :root{--lane:46px}
+  .run-arch{width:118px}
+  .runner{width:46px;height:63px}
+  .mate{width:32px;height:42px}
+  .mate:nth-of-type(3){display:none}
+  .dog{width:48px;height:30px}
+  .water{width:44px}
+  .stat,.toast{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .stat{padding:6px 9px;border-radius:12px}
+  .stat.dock{right:12px;bottom:14px}
+  .stat__km{font-size:15px}
+  .stat__ring{width:16px;height:16px}
+  .toasts{left:12px;right:12px;align-items:center;top:calc(72px + 10px)}
+  .kmpost{font-size:9.5px;padding:2px 6px}
+  .finish__arch{width:calc(100% - 24px)}
+  .medal{width:76px;right:6%}
+  .summary{width:calc(100% - 24px);border-radius:24px}
+  .summary__stats b{font-size:30px}
+  .cert{grid-template-columns:1fr}
+  .cert__prev{width:140px}
+}
+@media (prefers-reduced-motion:reduce){
+  .run-arch,.summary.on{animation:none}
+}

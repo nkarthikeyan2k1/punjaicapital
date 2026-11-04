@@ -9,7 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hind+Madurai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="preload" as="image" href="assets/ig/gobi-marathon-2026-photo.jpg" fetchpriority="high">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/run.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -32,52 +34,58 @@
 <header class="nav">
   <div class="wrap">
     <a class="nav__logo" href="#top" aria-label="Punjai Capitals Sports — home"><img src="assets/pcs-wordmark-dark.png" alt="Punjai Capitals Sports" width="655" height="117"></a>
-    <nav class="nav__links" aria-label="Main"><a href="#about">About</a><a href="#coaches">Coaches</a><a href="#weekly">Weekly runs</a><a href="#sundays">Sunday runs</a><a href="#races">Races</a><a href="#gallery">Photos</a><a href="#faq">FAQ</a></nav>
+    <nav class="nav__links" aria-label="Main"><a href="#about">About</a><a href="#coaches">Coaches</a><a href="#sundays">Sunday runs</a><a href="#races">Races</a><a href="#gallery">Photos</a><a href="#faq">FAQ</a></nav>
     <a class="btn" href="#join">Join free</a>
     <button class="nav__menu" type="button" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5H16M2 9H16M2 13H11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
   </div>
 </header>
 <div class="sheet" id="sheet" aria-hidden="true">
   <button class="sheet__close" type="button" id="sheetClose" aria-label="Close menu"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3L13 13M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-  <a href="#about">About</a><a href="#coaches">Coaches</a><a href="#weekly">Weekly runs</a><a href="#events">Events</a><a href="#faq">FAQ</a><a href="#join" style="color:var(--accent-text)">Join free</a>
+  <a href="#about">About</a><a href="#coaches">Coaches</a><a href="#sundays">Sunday runs</a><a href="#events">Events</a><a href="#races">Races</a><a href="#faq">FAQ</a><a href="#join" style="color:var(--accent-text)">Join free</a>
 </div>
 
 <main id="main">
-  <!-- ============ HERO ============ -->
+  <!-- ============ HERO · full-bleed photo (ASICS-style) ============
+       Swap the photo: change the <img> src below (a wide 4:3 or 16:9 photo, 1600px+ wide looks best).
+       data-lane / data-km are only used by the opt-in scroll run (js/run.js). -->
   <section class="hero" id="top" data-lane="r" data-km="0">
-    <div class="wrap">
-      <div>
-        <span class="chip"><i></i>One team · Multiple sports · Unlimited spirit</span>
-        <h1><span>Run together.</span><span>Rise together.</span></h1>
-        <p class="lead">Running, cycling and swimming in Punjai Puliampatti, for every age and every pace. Coach-led sessions, friendly groups and no membership fee.</p>
-        <div class="hero__ctas">
-          <a class="btn" href="#join">Join the club — it's free</a>
-          <a class="btn btn--line" href="#weekly">See weekly runs</a>
-        </div>
-        <ul class="facts">
-          <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5L8 14.5L16 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Free membership</li>
-          <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5L8 14.5L16 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>All levels welcome</li>
-          <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5L8 14.5L16 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Coach-led sessions</li>
-          <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5L8 14.5L16 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Run · Ride · Swim</li>
-        </ul>
-      </div>
-      <div class="badge" id="badge" aria-hidden="true"><img id="badgeIcon" src="assets/pcs-runner-icon-orange.png" alt="" width="323" height="291"></div>
+    <div class="hero__bg" aria-hidden="true">
+      <img src="assets/ig/gobi-marathon-2026-photo.jpg" alt="" width="1200" height="900" fetchpriority="high" decoding="async">
     </div>
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <span class="hero__mark" id="heroMark" aria-hidden="true"><span class="hero__wave" id="heroWave"><img id="heroIcon" src="assets/pcs-runner-icon.png" alt="" width="323" height="291"></span></span>
+        <span class="hero__kicker">Free community club · Punjai Puliampatti</span>
+        <h1><span>Punjai Capitals</span> <span>Sports Club</span></h1>
+        <p class="hero__tag">Run together. Rise together.</p>
+        <p class="hero__lead">Running, cycling and swimming for every age and every pace. Coach-led sessions, friendly groups and no membership fee.</p>
+        <div class="hero__ctas">
+          <a class="btn" href="#join">Join the club<span class="hero__long">&nbsp;— it's free</span></a>
+          <a class="btn btn--glass" href="#about">Our story</a>
+        </div>
+        <button class="runcta" type="button" id="runCta" aria-pressed="false">
+          <span class="runcta__ico" aria-hidden="true"><img src="assets/pcs-runner-icon.png" alt="" width="323" height="291"></span>
+          <span class="runcta__t">Start the 42.2K scroll run</span>
+          <b class="runcta__tag" aria-hidden="true">Play</b>
+        </button>
+      </div>
+    </div>
+    <p class="hero__credit">Gobi Marathon 2026 · the crew with their medals</p>
   </section>
 
-  <!-- ============ TEAM PHOTO ============ -->
+  <!-- ============ TEAM PHOTO (full photo, never cropped) ============ -->
   <section class="team" data-lane="r" aria-label="Club photo">
     <div class="wrap">
       <figure>
-        <picture><source srcset="assets/club-team-900.webp 900w, assets/club-team-1600.webp 1600w" type="image/webp" sizes="(max-width:1240px) 100vw, 1240px"><img src="assets/club-team-1600.jpg" alt="Punjai Capitals Sports Club members in red and white club jerseys" width="1600" height="647" loading="lazy" decoding="async"></picture>
+        <picture><source srcset="assets/club-group-900.webp 900w, assets/club-group-1200.webp 1200w" type="image/webp" sizes="(max-width:1280px) 100vw, 1200px"><img src="assets/club-group-1200.jpg" alt="Punjai Capitals Sports Club members in red and white club jerseys, standing together under the trees" width="1200" height="900" loading="lazy" decoding="async"></picture>
       </figure>
       <p style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:15px" class="muted"><span><b style="color:var(--ink)">The Punjai Capitals family</b> · runners, riders and first-timers of every age</span><span>Sunday group run · Punjai Puliampatti</span></p>
     </div>
   </section>
 
   <!-- ============ ABOUT ============ -->
-  <section class="alt" id="about" data-lane="l" data-km="5">
-    <div class="wrap about__grid">
+  <section class="alt" id="about" data-lane="m" data-lane-mobile="l" data-km="5">
+    <div class="wrap about__grid lane-grid">
       <div>
         <span class="kicker">About us</span>
         <h2>A community built on early mornings and village roads.</h2>
@@ -97,10 +105,10 @@
   </section>
 
   <!-- ============ WHAT WE DO ============ -->
-  <section id="what" data-lane="r" data-km="10">
+  <section id="what" data-lane="m" data-lane-mobile="r" data-km="10">
     <div class="wrap">
       <div class="head"><div><span class="kicker">What we do</span><h2>Run. Ride. Swim.</h2></div><p class="muted">One team, multiple sports. Every session is open to beginners.</p></div>
-      <div class="grid4">
+      <div class="grid4 lane-grid">
         <article class="card"><div class="ico"><svg viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 32C4 24 8 18 14 16C18 15 22 17 24 19L30 23C36 24 42 25 44 30C45 33 43 35 40 35H8C5 35 4 34 4 32Z"/><path d="M15 22L19 19M19 24L23 21"/></g></svg></div><h3>Run</h3><p>Group runs at every pace, from your first 2K to long runs before race day. Walk breaks are totally fine.</p></article>
         <article class="card"><div class="ico"><svg viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="32" r="8"/><circle cx="37" cy="32" r="8"/><path d="M11 32L19 18H31L37 32M19 18L25 32H11M25 32L31 18M16 14H22M31 18L33 12H37"/></g></svg></div><h3>Ride</h3><p>Group rides on the roads around Punjai. Steady pace, a safe group, and we regroup so nobody rides alone.</p></article>
         <article class="card"><div class="ico"><svg viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="31" cy="14" r="4"/><path d="M8 24L20 18L26 24M4 34C8 31 12 31 16 34S24 37 28 34 36 31 44 34M4 42C8 39 12 39 16 42S24 45 28 42 36 39 44 42"/></g></svg></div><h3>Swim</h3><p>Swimming for fitness and cross-training, and a first step towards triathlon.</p></article>
@@ -130,7 +138,7 @@
     <div class="wrap">
       <div class="head"><div><span class="kicker">Coaches &amp; captains</span><h2>The people who set the pace</h2></div><p class="muted">They plan the sessions, look after every runner and make sure everyone gets home. <span class="tag">Profiles coming soon</span></p></div>
       <!-- Replace each [ ] with the real details. Photo: swap the .ph div for <img src="assets/coach-name.jpg" alt="Name"> -->
-      <div class="grid4">
+      <div class="grid4 coach-row">
         <article class="card coach"><div class="ph">[COACH PHOTO]</div><div class="coach__body"><span class="coach__role">Head coach</span><h3>[Coach name]</h3><p class="muted">[Certification · years coaching]</p><a class="link" href="#">Strava profile</a></div></article>
         <article class="card coach"><div class="ph">[CAPTAIN PHOTO]</div><div class="coach__body"><span class="coach__role">Run captain</span><h3>[Captain name]</h3><p class="muted">[Best race · years running]</p><a class="link" href="#">Strava profile</a></div></article>
         <article class="card coach"><div class="ph">[CAPTAIN PHOTO]</div><div class="coach__body"><span class="coach__role">Ride captain</span><h3>[Captain name]</h3><p class="muted">[Longest ride · years riding]</p><a class="link" href="#">Strava profile</a></div></article>
@@ -140,7 +148,8 @@
   </section>
 
   <!-- ============ WEEKLY RUNS ============ -->
-  <section class="alt" id="weekly" data-lane="l" data-km="25">
+  <!-- HIDDEN for now: remove the "hidden" attribute to show Weekly runs again -->
+  <section class="alt" id="weekly" data-lane="l" hidden>
     <div class="wrap">
       <div class="head"><div><span class="kicker">Weekly runs</span><h2>When and where we meet</h2></div><p class="muted">Times can change for festivals and races. Check Instagram before you come.</p></div>
       <table class="table">
@@ -162,10 +171,10 @@
   </section>
 
 <!-- ============ SUNDAY RUN LOG (from Instagram) ============ -->
-  <section id="sundays" data-lane="r" data-km="25">
+  <section class="alt" id="sundays" data-lane="l" data-km="25">
     <div class="wrap">
       <div class="head"><div><span class="kicker">Sunday group runs</span><h2>Every Sunday. Every kilometre.</h2></div><p class="muted">The Sunday group run is the heart of the club. A few recent ones, straight from our Instagram. <a class="link" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener">See every run</a></p></div>
-      <div class="igrid">
+      <div class="igrid carousel" aria-label="Sunday group runs">
         <a class="ig run" href="https://www.instagram.com/punjaicapitals/reel/DVV4UZTCfjS/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[VIDEO · assets/ig/sunday-longrun-dam.jpg]</span><img src="assets/ig/sunday-longrun-dam.jpg" alt="Club runners at Bhavanisagar Dam after a Sunday long run" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="run__stats"><span>17.80 km</span><span>6:44 /km</span><span>1h 59m</span></span><span class="ig__cap">Long run to Bhavanisagar Dam</span><span class="ig__meta">Miles shared, memories made</span></a>
         <a class="ig run" href="https://www.instagram.com/kalaippy/reel/DbQZMp3pWkm/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[VIDEO · assets/ig/sunday-wellness.jpg]</span><img src="assets/ig/sunday-wellness.jpg" alt="Runners on the Run for Wellness route" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="run__stats"><span>13.14 km</span><span>5:19 /km</span><span>1:10:00</span></span><span class="ig__cap">Run for Wellness</span><span class="ig__meta">Amma School to Panyampalli · @kalaippy</span></a>
         <a class="ig run" href="https://www.instagram.com/kalaippy/reel/Dau63SCMzu0/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[VIDEO · assets/ig/sunday-13k.jpg]</span><img src="assets/ig/sunday-13k.jpg" alt="Two club runners on an early Sunday road" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="run__stats"><span>13.14 km</span><span>5:42 /km</span><span>1h 14m</span></span><span class="ig__cap">One road. One pace. One team.</span><span class="ig__meta">Sunday group run · @kalaippy</span></a>
@@ -178,8 +187,9 @@
     </div>
   </section>
 
-  <!-- ============ WEEKLY LEADERBOARD (from the Instagram highlight) ============ -->
-  <section class="alt" id="board" data-lane="r" data-km="27">
+  <!-- ============ WEEKLY LEADERBOARD (from the Instagram highlight) ============
+       HIDDEN for now: remove the "hidden" attribute to show the leaderboard again -->
+  <section class="alt" id="board" data-lane="r" hidden>
     <div class="wrap">
       <div class="head"><div><span class="kicker">Weekly leaderboard</span><h2>This week's top kilometres</h2></div><p class="muted">We post the weekly leaderboard on our Instagram stories. Update this table each week, or link to the latest story.</p></div>
       <table class="board">
@@ -213,7 +223,7 @@
         </div>
       </div>
       <div class="head" style="margin:44px 0 0"><div><h3 style="font-size:26px">Club moments</h3></div><a class="btn btn--line" href="#races">Races we've run</a></div>
-      <div class="pastlist">
+      <div class="pastlist carousel" aria-label="Club moments">
         <a class="pastev" href="https://www.instagram.com/punjaicapitals/p/DcnG11WBXhN/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[PHOTO · assets/ig/sports-day.jpg]</span><img src="assets/ig/sports-day.jpg" alt="Punjai Capitals members on National Sports Day" loading="lazy" decoding="async" onerror="this.remove()"></span><span><span class="tag">29 Aug</span><h3 style="margin-top:8px">National Sports Day</h3><p>The whole club came together to celebrate National Sports Day.</p></span></a>
         <a class="pastev" href="https://www.instagram.com/punjaicapitals/reel/De6tfv7JQvI/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[VIDEO · assets/ig/new-jersey-sunday.jpg]</span><img src="assets/ig/new-jersey-sunday.jpg" alt="Sunday group run in the new club jersey" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span><span class="tag">25 Oct 2026</span><h3 style="margin-top:8px">New jersey Sunday run</h3><p>New Sunday. New jersey. New members. One team.</p></span></a>
       </div>
@@ -263,10 +273,10 @@
   </section>
 
   <!-- ============ OUR JERSEY (from the October 2026 posts) ============ -->
-  <section class="alt" id="jersey" data-lane="l" data-km="33">
+  <section class="alt"  style="display:none;" id="jersey" data-lane="l" data-km="36">
     <div class="wrap">
       <div class="head"><div><span class="kicker">Our jersey</span><h2>One team. One jersey. One identity.</h2></div><p class="muted">Our red-and-white club jersey launched in October 2026, proudly crafted by Infini.</p></div>
-      <div class="jersey">
+      <div class="jersey carousel" aria-label="Jersey posts">
         <a class="ig" href="https://www.instagram.com/punjaicapitals/p/De5v7H2BBVM/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[INSTAGRAM PHOTO · assets/ig/jersey-poster.jpg]</span><img src="assets/ig/jersey-poster.jpg" alt="Punjai Capitals jersey poster" loading="lazy" decoding="async" onerror="this.remove()"></span><span class="ig__cap">One jersey. One team. One unbreakable spirit.</span><span class="ig__meta">24 Oct 2026 · photo</span></a>
         <a class="ig" href="https://www.instagram.com/punjaicapitals/reel/De6uFsEpL7s/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[INSTAGRAM VIDEO · assets/ig/jersey-reel.jpg]</span><img src="assets/ig/jersey-reel.jpg" alt="The new club jersey up close" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="ig__cap">One team. One jersey. One identity. Crafted by Infini.</span><span class="ig__meta">25 Oct 2026 · reel</span></a>
         <a class="ig" href="https://www.instagram.com/punjaicapitals/reel/De6tfv7JQvI/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[INSTAGRAM VIDEO · assets/ig/new-jersey-sunday.jpg]</span><img src="assets/ig/new-jersey-sunday.jpg" alt="Members in the new jersey on a Sunday run" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="ig__cap">New Sunday. New jersey. New members.</span><span class="ig__meta">25 Oct 2026 · reel</span></a>
@@ -276,7 +286,7 @@
   </section>
 
   <!-- ============ RUNNER STORIES ============ -->
-  <section id="stories" data-lane="l" data-km="35">
+  <section id="stories" data-lane="r" data-km="37">
     <div class="wrap">
       <div class="head"><div><span class="kicker">Runner stories</span><h2>Started here. Still running.</h2></div><p class="muted">In our members' own words, from their Instagram posts.</p></div>
       <div class="grid3">
@@ -288,10 +298,10 @@
   </section>
 
   <!-- ============ LATEST FROM INSTAGRAM (real posts & captions) ============ -->
-  <section class="alt" id="gallery" data-lane="r" data-km="38">
+  <section class="alt" id="gallery" data-lane="l" data-km="38">
     <div class="wrap">
       <div class="head"><div><span class="kicker">Latest from Instagram</span><h2>Don't watch us. Run with us.</h2></div><a class="btn btn--line" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener">Follow @punjaicapitals</a></div>
-      <div class="igrid">
+      <div class="igrid igrid--tiles carousel" aria-label="Latest Instagram posts">
         <a class="ig" href="https://www.instagram.com/subabalagan/reel/DfMoWqWtjibxMOGPRsCULWy4YOLe3-JF6SmbbA0/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[VIDEO · assets/ig/gobi-marathon-suba.jpg]</span><img src="assets/ig/gobi-marathon-suba.jpg" alt="A member with his Gobi Marathon medal" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="ig__cap">Gobi Marathon finisher</span><span class="ig__meta">Reel · @subabalagan</span></a>
         <a class="ig" href="https://www.instagram.com/subabalagan/reel/DeE1j_Wp49nyRjXUS7P8u7f-rrsioJURBl5pP40/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[VIDEO · assets/ig/childhood-friends.jpg]</span><img src="assets/ig/childhood-friends.jpg" alt="A member running on a village road" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="ig__cap">Childhood friends, still running side by side</span><span class="ig__meta">Reel · @subabalagan</span></a>
         <a class="ig" href="https://www.instagram.com/kalaippy/reel/DeWqaSWpAAj/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[VIDEO · assets/ig/group-ride.jpg]</span><img src="assets/ig/group-ride.jpg" alt="Runners and riders with their bikes after a Sunday session" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="ig__cap">Sunday group run and ride</span><span class="ig__meta">Reel · @kalaippy</span></a>
@@ -305,8 +315,8 @@
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section id="faq" data-lane="l" data-km="40">
-    <div class="wrap faq__grid">
+  <section id="faq" data-lane="m" data-lane-mobile="r" data-km="40">
+    <div class="wrap faq__grid lane-grid">
       <div><span class="kicker">First-timer guide</span><h2>New to running? Start here.</h2><p class="lead">Here's what people usually ask before their first club run.</p><p style="margin-top:18px"><a class="link" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener">Still unsure? Message us on Instagram</a></p></div>
       <div class="faq">
         <details open><summary>I've never run before. Can I join?<i aria-hidden="true">+</i></summary><p>Yes, that's exactly who we're for. Start with walk–run, go at your own pace, and the group waits for you at the end.</p></details>
@@ -319,8 +329,64 @@
     </div>
   </section>
 
+  <!-- ============ 42.2K FINISH LINE (scroll-run mode only) ============
+       Stays hidden until a visitor taps "Start the 42.2K scroll run" in the hero.
+       js/run.js un-hides it, breaks the tape and shows the run summary + certificate. -->
+  <section class="finish" id="finish" data-lane="c" data-km="42.2" hidden aria-labelledby="finishTitle">
+    <div class="crowd" id="crowd" aria-hidden="true"></div>
+    <div class="finish__arch" id="finishArch">
+      <svg class="frame" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M40 420V80M960 420V80" stroke="#F6EEDC" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        <path d="M24 46Q500 6 976 46L976 112Q500 72 24 112Z" fill="#F2A341" stroke="#F6EEDC" stroke-width="2" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <svg class="confetti-static" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
+        <rect x="90" y="190" width="14" height="6" rx="1.5" fill="#D4440F" transform="rotate(28 97 193)"/><rect x="150" y="300" width="10" height="10" rx="2" fill="#F2A341"/><rect x="70" y="360" width="16" height="6" rx="1.5" fill="#F6EEDC" transform="rotate(-34 78 363)"/><circle cx="210" cy="230" r="4" fill="#FF9A5C"/>
+        <rect x="880" y="300" width="14" height="6" rx="1.5" fill="#D4440F" transform="rotate(-22 887 303)"/><rect x="830" y="370" width="10" height="10" rx="2" fill="#F6EEDC"/><circle cx="800" cy="190" r="4" fill="#FFD3B0"/><rect x="330" y="160" width="12" height="5" rx="1.5" fill="#F27235"/><rect x="660" y="166" width="12" height="5" rx="1.5" fill="#F2A341"/>
+      </svg>
+      <p class="banner" aria-hidden="true">FINISH · 42.2K</p>
+      <div class="tape" id="finishTape" aria-hidden="true"></div>
+      <svg class="medal" viewBox="0 0 110 160" aria-hidden="true"><path d="M30 0L50 70M80 0L60 70" stroke="#D4440F" stroke-width="12"/><circle cx="55" cy="108" r="48" fill="#F2A341" stroke="#F6EEDC" stroke-width="3"/><circle cx="55" cy="108" r="36" fill="none" stroke="#0E0C09" stroke-opacity=".35" stroke-width="2"/><text x="55" y="119" text-anchor="middle" font-family="Big Shoulders, Arial Narrow, sans-serif" font-weight="900" font-size="32" fill="#0E0C09">42.2</text></svg>
+    </div>
+    <div class="wrap finish__copy">
+      <h2 id="finishTitle"><span>You just ran 42.2K.</span><span>Now come run the real one.</span></h2>
+      <p class="lead">Membership is free. The form takes about three minutes.</p>
+    </div>
+
+    <!-- Strava-style summary of the visitor's scroll run + finisher certificate -->
+    <div class="summary" id="summary" aria-live="polite">
+      <div class="summary__top"><img src="assets/pcs-runner-icon.png" alt="" width="323" height="291"><div><b>Your 42.2K scroll marathon</b><span>Punjai Puliampatti · just now</span></div></div>
+      <div class="summary__stats">
+        <div><span>Distance</span><b>42.2 km</b></div>
+        <div><span>Scroll time</span><b id="sumTime">0:00</b></div>
+        <div><span>Projected finish</span><b id="sumProj">0:00:00</b></div>
+      </div>
+      <div class="splits" id="splits" aria-label="Relative time per section"></div>
+      <p class="summary__note" id="sumNote">Projected marathon finish, based on how you scrolled.</p>
+      <div class="cert">
+        <img class="cert__prev" id="certPrev" alt="Preview of your finisher certificate">
+        <div>
+          <h3 class="cert__h">Your finisher certificate</h3>
+          <div class="field"><label for="certName">Name on certificate</label><input id="certName" maxlength="40" autocomplete="name" placeholder="Your name"></div>
+          <div class="cert__row">
+            <button class="btn" type="button" id="dlPost">Download post</button>
+            <button class="btn btn--ghost" type="button" id="dlStory">Download story</button>
+            <button class="btn btn--ghost" type="button" id="certShare">Share…</button>
+          </div>
+          <div class="social" aria-label="Share on social media">
+            <button type="button" id="runShIg"><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="2" width="14" height="14" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="9" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Instagram story</button>
+            <a id="runShX" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3L15 15M15 3L3 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>X / Twitter</a>
+            <a id="runShWa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 15l1-3.2A6.5 6.5 0 1 1 6.6 14z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>WhatsApp</a>
+            <a id="runShFb" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M10.5 16V9.5H13L13.4 7H10.5V5.5C10.5 4.8 10.8 4.3 11.8 4.3H13.5V2.1C13.2 2 12.3 2 11.3 2 9.2 2 8 3.2 8 5.3V7H5.7v2.5H8V16" fill="currentColor"/></svg>Facebook</a>
+          </div>
+          <p class="cert__msg" id="certMsg" role="status"></p>
+        </div>
+      </div>
+    </div>
+    <p class="finish__join"><a class="btn" href="#join">Join the club — it's free ↓</a></p>
+  </section>
+
   <!-- ============ JOIN ============ -->
-  <section class="alt" id="join" data-lane="c" data-km="42.2">
+  <section class="alt" id="join">
     <div class="wrap join__grid">
       <div>
         <span class="kicker">Join the club</span>
@@ -414,24 +480,29 @@
   <div class="wrap">
     <div class="foot__grid">
       <div>
+        <img class="foot__logo" src="assets/pcs-wordmark.png" alt="Punjai Capitals Sports" width="655" height="117" loading="lazy">
         <span class="kicker">Cool-down</span>
         <p class="foot__big">Stretch. Hydrate. See you at the next run.</p>
-        <a class="btn" href="#top" id="toTop">Back to the start line ↑</a>
+        <div class="foot__ctas">
+          <a class="btn" href="#join">Join free</a>
+          <a class="btn btn--line" href="#top" id="toTop">Back to the start line ↑</a>
+        </div>
       </div>
       <div class="foot__cols">
         <div><b>Find us</b>Punjai Puliampatti<br>Erode district, Tamil Nadu</div>
-        <div><b>Follow</b><a href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener" style="font-weight:600">Instagram @punjaicapitals</a></div>
-        <nav aria-label="Footer"><a href="#about">About</a><a href="#coaches">Coaches</a><a href="#weekly">Weekly runs</a><a href="#events">Events</a><a href="#faq">FAQ</a><a href="#join">Join free</a></nav>
+        <div><b>Follow</b><a class="foot__ig" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener"><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="2" width="14" height="14" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="9" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="13.2" cy="4.8" r="1" fill="currentColor"/></svg>@punjaicapitals</a></div>
+        <nav aria-label="Footer"><a href="#about">About</a><a href="#coaches">Coaches</a><a href="#sundays">Sunday runs</a><a href="#events">Events</a><a href="#races">Races</a><a href="#gallery">Photos</a><a href="#faq">FAQ</a><a href="#join">Join free</a></nav>
       </div>
     </div>
     <div class="foot__bar">
-      <img src="assets/pcs-wordmark.png" alt="Punjai Capitals Sports" width="655" height="117" loading="lazy">
       <span>Together we train. Together we grow. Together we achieve.</span>
       <span>© <span id="year">2026</span> Punjai Capitals Sports Club</span>
     </div>
   </div>
+  <p class="foot__giant" aria-hidden="true">Punjai Capitals</p>
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/run.js" defer></script>
 </body>
 </html>
