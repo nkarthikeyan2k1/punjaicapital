@@ -34,14 +34,14 @@
 <header class="nav">
   <div class="wrap">
     <a class="nav__logo" href="#top" aria-label="Punjai Capitals Sports — home"><img src="assets/pcs-wordmark-dark.png" alt="Punjai Capitals Sports" width="655" height="117"></a>
-    <nav class="nav__links" aria-label="Main"><a href="#about">About</a><a href="#coaches">Coaches</a><a href="#sundays">Sunday runs</a><a href="#races">Races</a><a href="#gallery">Photos</a><a href="#faq">FAQ</a></nav>
+    <nav class="nav__links" aria-label="Main"><a href="#about">About</a><a href="#coaches">Coaches</a><a href="#sundays">Sunday runs</a><a href="#races">Races</a><a href="#records">Records</a><a href="#gallery">Photos</a><a href="#faq">FAQ</a></nav>
     <a class="btn" href="#join">Join free</a>
     <button class="nav__menu" type="button" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5H16M2 9H16M2 13H11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
   </div>
 </header>
 <div class="sheet" id="sheet" aria-hidden="true">
   <button class="sheet__close" type="button" id="sheetClose" aria-label="Close menu"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3L13 13M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-  <a href="#about">About</a><a href="#coaches">Coaches</a><a href="#sundays">Sunday runs</a><a href="#events">Events</a><a href="#races">Races</a><a href="#faq">FAQ</a><a href="#join" style="color:var(--accent-text)">Join free</a>
+  <a href="#about">About</a><a href="#coaches">Coaches</a><a href="#sundays">Sunday runs</a><a href="#events">Events</a><a href="#races">Races</a><a href="#records">Records</a><a href="#faq">FAQ</a><a href="#join" style="color:var(--accent-text)">Join free</a>
 </div>
 
 <main id="main">
@@ -259,6 +259,83 @@
     </div>
   </section>
 
+  <!-- ============ CLUB RECORDS (team suggestion · data from Strava, Nov 2026) ============
+       Each record card: rec__face = photo (initials show until it loads) · rec__time · rec__meta = event · date (add the finishing position when you have it)
+       Times are each runner's fastest Strava "best effort" at that distance. Swap in official chip times when you have them. -->
+  <section id="records" data-lane="m" data-lane-mobile="r" data-km="33">
+    <div class="wrap">
+      <div class="head"><div><span class="kicker">Club records</span><h2>Our fastest, so far.</h2></div><p class="muted">The best time by a Punjai Capitals runner at each distance. Beat one and your photo goes up here.</p></div>
+      <div class="records__grid lane-grid">
+        <div class="records" aria-label="Best club times by distance">
+          <article class="rec">
+            <span class="rec__dist">5K</span>
+            <span class="rec__face" data-i="KS"><img src="assets/people/kalaiselvan.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+            <h3 class="rec__name">Kalaiselvan S</h3>
+            <p class="rec__time">18:50</p>
+            <p class="rec__meta">5K event, Sathyamangalam · 26 Jul 2026</p>
+            <a class="rec__src" href="https://www.strava.com/activities/19466281826" target="_blank" rel="noopener">On Strava<span class="sr"> · 5K record</span></a>
+          </article>
+          <article class="rec">
+            <span class="rec__dist">10K</span>
+            <span class="rec__face" data-i="KS"><img src="assets/people/kalaiselvan.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+            <h3 class="rec__name">Kalaiselvan S</h3>
+            <p class="rec__time">43:54</p>
+            <p class="rec__meta">Bluemount Marathon · 20 Sep 2026</p>
+            <a class="rec__src" href="https://www.strava.com/activities/20248253192" target="_blank" rel="noopener">On Strava<span class="sr"> · 10K record</span></a>
+          </article>
+          <article class="rec">
+            <span class="rec__dist">21.1K</span>
+            <span class="rec__face" data-i="KS"><img src="assets/people/kalaiselvan.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+            <h3 class="rec__name">Kalaiselvan S</h3>
+            <p class="rec__time">1:42:42</p>
+            <p class="rec__meta">Independence Day run · 15 Aug 2025</p>
+            <a class="rec__src" href="https://www.strava.com/activities/15462560944" target="_blank" rel="noopener">On Strava<span class="sr"> · 21.1K record</span></a>
+          </article>
+          <!-- No club marathon time yet: replace this card with a normal .rec card like the ones above -->
+          <article class="rec rec--open">
+            <span class="rec__dist">42.2K</span>
+            <span class="rec__face" data-i="?"></span>
+            <h3 class="rec__name">Record open</h3>
+            <p class="rec__time">--:--:--</p>
+            <p class="rec__meta">Finish a full marathon in club colours and this spot is yours.</p>
+          </article>
+        </div>
+
+        <!-- Othimalai: Strava segment 35944645, all-time top 10, copied as Strava shows it -->
+        <article class="seg" aria-labelledby="segH">
+          <div class="seg__top">
+            <span class="kicker">Strava leaderboard · All-time</span>
+            <h3 id="segH">Othimalai Climb</h3>
+            <p class="seg__facts"><span>0.83 km</span><span>189 m up</span><span>24.4% avg grade</span></p>
+            <div class="seg__cr">
+              <span class="seg__rays" aria-hidden="true"></span>
+              <span class="av av--lg" data-i="KS"><img src="assets/people/kalaiselvan.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span>
+              <b class="seg__time">10:49</b>
+              <span class="seg__crl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18L5 7L10 12L12 5L14 12L19 7L21 18Z" fill="currentColor"/></svg>CR · KALAISELVAN S</span>
+            </div>
+          </div>
+          <table class="seg__board">
+            <caption class="sr">Othimalai Climb, all-time top 10 on Strava</caption>
+            <thead><tr><th scope="col">Rank</th><th scope="col">Athlete</th><th scope="col">Time, pace</th></tr></thead>
+            <tbody>
+              <tr class="is-cr"><td><svg viewBox="0 0 24 24" aria-label="1"><path d="M3 18L5 7L10 12L12 5L14 12L19 7L21 18Z" fill="currentColor"/></svg></td><td><div class="ath"><span class="av" data-i="KS"><img src="assets/people/kalaiselvan.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span><span><b>KALAISELVAN S</b><small>17 September 2024</small></span></div></td><td><b>10:49</b><small>12:59/km</small></td></tr>
+              <tr><td>2</td><td><div class="ath"><span class="av" data-i="PA"><img src="assets/people/prakash.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span><span><b>Prakash Arumugam PT</b><small>7 July 2026</small></span></div></td><td><b>15:25</b><small>18:30/km</small></td></tr>
+              <tr><td>3</td><td><div class="ath"><span class="av" data-i="AC"><img src="assets/people/aswath.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span><span><b>Aswath C</b><small>30 September 2025</small></span></div></td><td><b>15:49</b><small>18:59/km</small></td></tr>
+              <tr><td>4</td><td><div class="ath"><span class="av" data-i="PS"><img src="assets/people/prabhu.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span><span><b>Prabhu Sundar | Firebolts ⚡</b><small>31 March 2026</small></span></div></td><td><b>16:04</b><small>19:17/km</small></td></tr>
+              <tr><td>5</td><td><div class="ath"><span class="av" data-i="SH"><img src="assets/people/hariharan.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span><span><b>S R Hariharan</b><small>29 March 2025</small></span></div></td><td><b>16:20</b><small>19:36/km</small></td></tr>
+              <tr><td>6</td><td><div class="ath"><span class="av" data-i="JV"><img src="assets/people/jayakumar.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span><span><b>Jayakumar Venkidusamy</b><small>7 October 2025</small></span></div></td><td><b>16:22</b><small>19:38/km</small></td></tr>
+              <tr><td>7</td><td><div class="ath"><span class="av" data-i="SV"></span><span><b>Surya V</b><small>6 January 2026</small></span></div></td><td><b>16:26</b><small>19:43/km</small></td></tr>
+              <tr><td>8</td><td><div class="ath"><span class="av" data-i="PT"><img src="assets/people/praveen.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span><span><b>Praveen&nbsp; Thulasi</b><small>9 February 2021</small></span></div></td><td><b>16:47</b><small>20:08/km</small></td></tr>
+              <tr><td>9</td><td><div class="ath"><span class="av" data-i="SR"><img src="assets/people/sidhu.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span><span><b>Sidhu R</b><small>2 October 2026</small></span></div></td><td><b>16:48</b><small>20:09/km</small></td></tr>
+              <tr><td>10</td><td><div class="ath"><span class="av" data-i="JG"><img src="assets/people/jafar.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></span><span><b>Jafar G</b><small>29 November 2020</small></span></div></td><td><b>17:27</b><small>20:56/km</small></td></tr>
+            </tbody>
+          </table>
+          <p class="seg__foot">1,116 attempts by 336 people · <a class="link" href="https://www.strava.com/segments/35944645" target="_blank" rel="noopener">Full leaderboard on Strava</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ TRAINING (from Instagram) ============ -->
   <section id="training" data-lane="r" data-km="34">
     <div class="wrap">
@@ -310,6 +387,58 @@
         <a class="ig" href="https://www.instagram.com/kalaippy/reel/DerQw6RpOo2/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[VIDEO · assets/ig/kalai-morning-ride.jpg]</span><img src="assets/ig/kalai-morning-ride.jpg" alt="Morning ride around Punjai Puliampatti" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="ig__cap">Morning ride</span><span class="ig__meta">Reel · @kalaippy</span></a>
         <a class="ig" href="https://www.instagram.com/punjaicapitals/reel/DaaDz8GBCsA/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[VIDEO · assets/ig/sunday-vibes.jpg]</span><img src="assets/ig/sunday-vibes.jpg" alt="A club runner on a quiet morning road" loading="lazy" decoding="async" onerror="this.remove()"><svg class="ig__play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V19L19 12Z" fill="currentColor"/></svg></span><span class="ig__cap">Sweat, smiles and Sunday vibes</span><span class="ig__meta">Reel · @punjaicapitals</span></a>
         <a class="ig" href="https://www.instagram.com/jamaica_veeran_09/p/De5-8-Xx22L/" target="_blank" rel="noopener"><span class="ig__media"><span class="ig__ph">[PHOTO · assets/ig/member-veeran.jpg]</span><img src="assets/ig/member-veeran.jpg" alt="Member in the club jersey" loading="lazy" decoding="async" onerror="this.remove()"></span><span class="ig__cap">Built by discipline. Driven by passion.</span><span class="ig__meta">Photo · @jamaica_veeran_09</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BENEFICIARIES + SUPPORT (team suggestion · after happyfeetcbe.org/our-beneficiaries) ============
+       The 6 athlete cards are DUMMY content: replace the name, sport, story and photo (bene__ph → put an <img> of the athlete, square) -->
+  <section class="support" id="support" data-lane="r" data-km="39">
+    <div class="wrap">
+      <div class="head"><div><span class="kicker">Our beneficiaries</span><h2>Athletes we back</h2></div><p class="muted">Talented young athletes from Punjai and around, helped by the club with coaching, kit and race entries.</p></div>
+      <div class="bene-row carousel" aria-label="Athletes we back">
+        <article class="bene">
+          <div class="bene__top"><span class="bene__ph" aria-hidden="true"><img src="assets/pcs-runner-icon-orange.png" alt="" width="323" height="291" loading="lazy"></span><div><h3>[Athlete name]</h3><p class="bene__sport">Para athlete · 100m &amp; 400m</p></div></div>
+          <p class="bene__txt">A senior sprinter with national-level results. The club is helping with a co-runner, track time and travel to meets.</p>
+          <a class="slant slant--sm" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener">View more<span class="sr"> about this athlete</span></a>
+        </article>
+        <article class="bene">
+          <div class="bene__top"><span class="bene__ph" aria-hidden="true"><img src="assets/pcs-runner-icon-orange.png" alt="" width="323" height="291" loading="lazy"></span><div><h3>[Athlete name]</h3><p class="bene__sport">Distance runner · 5K &amp; 10K</p></div></div>
+          <p class="bene__txt">A school student who started with our Sunday runs and now wins district races. We cover race entries and shoes.</p>
+          <a class="slant slant--sm" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener">View more<span class="sr"> about this athlete</span></a>
+        </article>
+        <article class="bene">
+          <div class="bene__top"><span class="bene__ph" aria-hidden="true"><img src="assets/pcs-runner-icon-orange.png" alt="" width="323" height="291" loading="lazy"></span><div><h3>[Athlete name]</h3><p class="bene__sport">Para athlete · Shot put &amp; javelin</p></div></div>
+          <p class="bene__txt">Has won medals at state and national junior meets and is aiming for the Paralympics. We help with gear and coaching.</p>
+          <a class="slant slant--sm" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener">View more<span class="sr"> about this athlete</span></a>
+        </article>
+        <article class="bene">
+          <div class="bene__top"><span class="bene__ph" aria-hidden="true"><img src="assets/pcs-runner-icon-orange.png" alt="" width="323" height="291" loading="lazy"></span><div><h3>[Athlete name]</h3><p class="bene__sport">Sprinter · 100m &amp; 200m</p></div></div>
+          <p class="bene__txt">Fast off the blocks and training for the state meet, with a coach-led plan and spikes from the club.</p>
+          <a class="slant slant--sm" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener">View more<span class="sr"> about this athlete</span></a>
+        </article>
+        <article class="bene">
+          <div class="bene__top"><span class="bene__ph" aria-hidden="true"><img src="assets/pcs-runner-icon-orange.png" alt="" width="323" height="291" loading="lazy"></span><div><h3>[Athlete name]</h3><p class="bene__sport">Cyclist · Road</p></div></div>
+          <p class="bene__txt">A young rider training for long-distance road events. We help with bike servicing and race-day travel.</p>
+          <a class="slant slant--sm" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener">View more<span class="sr"> about this athlete</span></a>
+        </article>
+        <article class="bene">
+          <div class="bene__top"><span class="bene__ph" aria-hidden="true"><img src="assets/pcs-runner-icon-orange.png" alt="" width="323" height="291" loading="lazy"></span><div><h3>[Athlete name]</h3><p class="bene__sport">Triathlete · Sprint distance</p></div></div>
+          <p class="bene__txt">Learning to swim, ride and run in one race. The club helps with pool time and a training plan.</p>
+          <a class="slant slant--sm" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener">View more<span class="sr"> about this athlete</span></a>
+        </article>
+      </div>
+      <div class="support__grid">
+        <article class="support__box">
+          <h2>Beneficiaries</h2>
+          <p>Are you a dedicated runner or athlete from Punjai Puliampatti with big goals? Tell us about yourself. Our coaches will help with a training plan, race guidance and finding the right events.</p>
+          <a class="slant" href="https://ig.me/m/punjaicapitals" target="_blank" rel="noopener">Apply now</a>
+        </article>
+        <article class="support__box">
+          <h2>Support us to make an impact</h2>
+          <p>Sponsor a race entry, volunteer at a water station or simply share our story. Every bit of help gets one more person from our town to the start line.</p>
+          <a class="slant" href="https://ig.me/m/punjaicapitals" target="_blank" rel="noopener">Contact us</a>
+        </article>
       </div>
     </div>
   </section>
@@ -491,7 +620,7 @@
       <div class="foot__cols">
         <div><b>Find us</b>Punjai Puliampatti<br>Erode district, Tamil Nadu</div>
         <div><b>Follow</b><a class="foot__ig" href="https://www.instagram.com/punjaicapitals" target="_blank" rel="noopener"><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="2" width="14" height="14" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="9" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="13.2" cy="4.8" r="1" fill="currentColor"/></svg>@punjaicapitals</a></div>
-        <nav aria-label="Footer"><a href="#about">About</a><a href="#coaches">Coaches</a><a href="#sundays">Sunday runs</a><a href="#events">Events</a><a href="#races">Races</a><a href="#gallery">Photos</a><a href="#faq">FAQ</a><a href="#join">Join free</a></nav>
+        <nav aria-label="Footer"><a href="#about">About</a><a href="#coaches">Coaches</a><a href="#sundays">Sunday runs</a><a href="#events">Events</a><a href="#races">Races</a><a href="#records">Records</a><a href="#gallery">Photos</a><a href="#faq">FAQ</a><a href="#join">Join free</a></nav>
       </div>
     </div>
     <div class="foot__bar">

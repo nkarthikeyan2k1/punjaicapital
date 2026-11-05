@@ -33,8 +33,8 @@ body.run .hero__mark{visibility:hidden}
 /* The running track: lane, dashed centre line, orange GPS trace */
 .route{position:absolute;left:0;top:0;z-index:1;pointer-events:none;overflow:visible}
 .route path{fill:none;stroke-linecap:round;stroke-linejoin:round}
-.route .lane-bg{stroke:rgba(26,9,4,.07);stroke-width:22}
-.route .centre{stroke:rgba(26,9,4,.2);stroke-width:2;stroke-dasharray:10 14}
+.route .lane-bg{stroke:rgba(170,150,140,.2);stroke-width:22}   /* warm grey: reads on light and on the dark #support band */
+.route .centre{stroke:rgba(150,130,120,.42);stroke-width:2;stroke-dasharray:10 14}
 .route .glow{stroke:var(--accent);stroke-width:14;opacity:.18}
 .route .trace{stroke:var(--accent);stroke-width:4.5}
 .kmpost{position:absolute;z-index:2;transform:translate(-50%,-50%);padding:3px 8px;border-radius:999px;background:#160603;color:#FFD3B0;font:700 10.5px/1.2 var(--mono);letter-spacing:.06em;white-space:nowrap;pointer-events:none;box-shadow:0 4px 10px rgba(22,6,3,.18)}
@@ -176,3 +176,5 @@ body.typing .stat,.stat.off{opacity:0}
 @media (prefers-reduced-motion:reduce){
   .run-arch,.summary.on{animation:none}
 }
+/* records: the two columns of .records__grid are the middle-lane pair */
+@media (min-width:761px) and (max-width:1024px){ body.run #records .records__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} body.run #records .records{grid-template-columns:1fr} }
