@@ -1,4 +1,4 @@
-# Punjai Capitals Sports Club website
+# Punjai Capitals Sports Club website : https://nkarthikeyan2k1.github.io/punjaicapitals/
 
 Plain HTML, CSS and JavaScript. No framework, no build step.
 
